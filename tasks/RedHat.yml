@@ -1,0 +1,38 @@
+- name: Installing EPEL
+  package:
+    name: "epel-release"
+    state: present
+
+- name: Installing packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - autoconf
+    - automake
+    - bison
+    - cmake
+    - file
+    - finger
+    - flex
+    - gcc
+    - gcc-c++
+    - gettext
+    - libtool
+    - libX11-devel
+    - libXfixes-devel
+    - libjpeg-devel
+    - libXrandr-devel
+    - libxslt
+    - nasm
+    - make
+    - openssl-devel
+    - pam-devel
+    - patch
+    - perl-libxml-perl
+    - pkgconfig
+    - xmlto-tex
+    - xorg-x11-font-utils
+    - xorg-x11-server-Xorg
+    - xorg-x11-server-devel
+    - xorg-x11-xinit
