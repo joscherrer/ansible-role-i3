@@ -1,13 +1,13 @@
 progs:
-  - { tag: "N", src: "i3-gaps", desc: "is the main graphical user interface and window manager." }
-  - { tag: "N", src: "xorg-server", desc: "is the graphical server." }
+  # - { tag: "N", src: "i3-gaps", desc: "is the main graphical user interface and window manager." }
+  # - { tag: "N", src: "xorg-server", desc: "is the graphical server." }
   - { tag: "N", src: "xorg-xwininfo", desc: "allows querying information about windows." }
   - { tag: "N", src: "xorg-xinit", desc: "starts the graphical server." }
-  - { tag: "V", src: "xorg-minimal", desc: "is the graphical server." }
-  - { tag: "V", src: "xorg-fonts", desc: "is a font package." }
-  - { tag: "V", src: "libX11-devel", desc: "is required for the compilation of some programs." }
+  # - { tag: "V", src: "xorg-minimal", desc: "is the graphical server." }
+  # - { tag: "V", src: "xorg-fonts", desc: "is a font package." }
+  # - { tag: "V", src: "libX11-devel", desc: "is required for the compilation of some programs." }
   - { tag: "N", src: "sxhkd", desc: "binds keys." }
-  - { tag: "I", src: "libXft-devel", desc: "is required for the compilation of some programs." }
+  # - { tag: "I", src: "libXft-devel", desc:  "is required for the compilation of some programs." }
   - { tag: "I", src: "gcr-devel", desc: "is required for the compilation of some programs." }
   - { tag: "I", src: "fontconfig-devel", desc: "is required for the compilation of some programs." }
   - { tag: "N", src: "ttf-inconsolata", desc: "is the monospace font of LARBS." }
@@ -45,17 +45,17 @@ progs:
   - { tag: "A", src: "sc-im", desc: "is an Excel-like terminal spreadsheet manager." }
   - { tag: "N", src: "maim", desc: "can take quick screenshots at your request." }
   - { tag: "N", src: "socat", desc: "is a socket utility." }
-  - { tag: "N", src: "tmux", desc: "is a terminal multiplexer and the dropdown window in LARBS." }
+  # - { tag: "N", src: "tmux", desc: "is a terminal multiplexer and the dropdown window in LARBS." }
   - { tag: "N", src: "unclutter", desc: "hides an inactive mouse." }
   - { tag: "V", src: "unclutter-xfixes", desc: "hides an inactive mouse." }
-  - { tag: "N", src: "unrar", desc: "'extracts rars.'" }
-  - { tag: "N", src: "unzip", desc: "unzips zips." }
-  - { tag: "N", src: "lynx", desc: "is a terminal browser which can also view images." }
+  # - { tag: "N", src: "unrar", desc: "'extracts rars.'" }
+  # - { tag: "N", src: "unzip", desc: "unzips zips." }
+  # - { tag: "N", src: "lynx", desc: "is a terminal browser which can also view images." }
   - { tag: "N", src: "xcape", desc: "gives the special escape/super mappings of LARBS." }
   - { tag: "N", src: "xclip", desc: "allows for copying and pasting from the command line." }
   - { tag: "N", src: "xdotool", desc: "provides window action utilities on the command line." }
-  - { tag: "N", src: "xorg-xdpyinfo", desc: "aids with resolution determination and screen recording." }
-  - { tag: "V", src: "xdpyinfo", desc: "aids with resolution determination and screen recording." }
+  # - { tag: "N", src: "xorg-xdpyinfo", desc: "aids with resolution determination and screen recording." }
+  # - { tag: "V", src: "xdpyinfo", desc: "aids with resolution determination and screen recording." }
   - { tag: "N", src: "youtube-dl", desc: "can download any YouTube video (or playlist or channel) when given the link." }
   - { tag: "N", src: "zathura", desc: "is a pdf viewer with vim-like bindings." }
   - { tag: "N", src: "zathura-pdf-mupdf", desc: "allows mupdf pdf compatibility in zathura." }
@@ -66,11 +66,11 @@ progs:
   - { tag: "N", src: "fzf", desc: "is a fuzzy finder tool." }
   - { tag: "N", src: "highlight", desc: "can highlight code output." }
   - { tag: "N", src: "xorg-xbacklight", desc: "enables changing screen brightness levels." }
-  - { tag: "N", src: "zsh-syntax-highlighting", desc: "provides fish-like syntax highlighting in the shell." }
+  # - { tag: "N", src: "zsh-syntax-highlighting", desc: "provides fish-like syntax highlighting in the shell." }
   - { tag: "A", src: "task-spooler", desc: "queues commands or files for download." }
   - { tag: "V", src: "ts", desc: "queues commands or files for download." }
-  - { tag: "A", src: "simple-mtpfs", desc: "enables the mounting of cell phones." }
-  - { tag: "V", src: "simple-mtpfs", desc: "enables the mounting of cell phones." }
+  # - { tag: "A", src: "simple-mtpfs", desc: "enables the mounting of cell phones." }
+  # - { tag: "V", src: "simple-mtpfs", desc: "enables the mounting of cell phones." }
   - { tag: "V", src: "setxkbmap", desc: "'allows LARBS''s unique keyboard bindings.'" }
   - { tag: "V", src: "xmodmap", desc: "'allows LARBS''s unique keyboard bindings.'" }
   - { tag: "V", src: "xsetroot", desc: "sets status bar and other X properies." }

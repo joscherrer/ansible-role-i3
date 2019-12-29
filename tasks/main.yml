@@ -3,55 +3,92 @@
 
 - include_tasks: "{{ ansible_os_family }}.yml"
 
+- name: stat xcb-xrm
+  stat:
+    path: /usr/lib64/libxcb-xrm.so
+  register: xcb_xrm
+
 - name: Cloning xcb-util-xrm
   git:
     repo: https://github.com/Airblader/xcb-util-xrm
     dest: /tmp/xcb-util-xrm
     recursive: yes
+  when: not xcb_xrm.stat.exists
 
 - name: Autogen xcb-util-xrm
   shell: ./autogen.sh --prefix=/usr --libdir=/usr/lib64
   args:
     chdir: /tmp/xcb-util-xrm
+  when: not xcb_xrm.stat.exists
 
 - name: Making xcb-util-xrm
   make:
     chdir: /tmp/xcb-util-xrm
     target: all
+  when: not xcb_xrm.stat.exists
 
 - name: Make install xcb-util-xrm
   become: yes
   make:
     chdir: /tmp/xcb-util-xrm
     target: install
+  when: not xcb_xrm.stat.exists
+
+- name: Stat i3
+  stat:
+    path: /usr/bin/i3
+  register: i3
 
 - name: Cloning i3-gaps
   git:
     repo: https://github.com/Airblader/i3.git
     dest: /tmp/i3-gaps
+  when: not i3.stat.exists
 
 - name: Autoreconf
   shell: autoreconf --force --install
   args:
     chdir: /tmp/i3-gaps
+  when: not i3.stat.exists
 
 - name: Creating i3-gaps build dir
   file:
     path: /tmp/i3-gaps/build
     state: directory
+  when: not i3.stat.exists
+
 
 - name: Configure i3-gaps
   shell: ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
   args:
     chdir: /tmp/i3-gaps/build
+  when: not i3.stat.exists
 
 - name: Make i3-gaps
   make:
     target: all
     chdir: /tmp/i3-gaps/build
+  when: not i3.stat.exists
 
 - name: Make install i3-gaps
   become: yes
   make:
     target: install
     chdir: /tmp/i3-gaps/build
+  when: not i3.stat.exists
+
+- name: Getting passwd info
+  getent:
+    database: passwd
+
+- name: Create initial .xinitrc
+  become: true
+  copy:
+    dest: "{{ getent_passwd[item][4] }}/.xinitrc"
+    src: files/.xinitrc
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0755
+    force: no
+  loop: "{{ user_list }}"
+  when: item in getent_passwd
