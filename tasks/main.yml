@@ -1,6 +1,57 @@
 ---
 # tasks file for ansible-role-i3
 
-- import_tasks: "{{ ansible_os_family }}.yml"
+- include_tasks: "{{ ansible_os_family }}.yml"
 
-- name: Installs dev-tools
+- name: Cloning xcb-util-xrm
+  git:
+    repo: https://github.com/Airblader/xcb-util-xrm
+    dest: /tmp/xcb-util-xrm
+    recursive: yes
+
+- name: Autogen xcb-util-xrm
+  shell: ./autogen.sh --prefix=/usr --libdir=/usr/lib64
+  args:
+    chdir: /tmp/xcb-util-xrm
+
+- name: Making xcb-util-xrm
+  make:
+    chdir: /tmp/xcb-util-xrm
+    target: all
+
+- name: Make install xcb-util-xrm
+  become: yes
+  make:
+    chdir: /tmp/xcb-util-xrm
+    target: install
+
+- name: Cloning i3-gaps
+  git:
+    repo: https://github.com/Airblader/i3.git
+    dest: /tmp/i3-gaps
+
+- name: Autoreconf
+  shell: autoreconf --force --install
+  args:
+    chdir: /tmp/i3-gaps
+
+- name: Creating i3-gaps build dir
+  file:
+    path: /tmp/i3-gaps/build
+    state: directory
+
+- name: Configure i3-gaps
+  shell: ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+  args:
+    chdir: /tmp/i3-gaps/build
+
+- name: Make i3-gaps
+  make:
+    target: all
+    chdir: /tmp/i3-gaps/build
+
+- name: Make install i3-gaps
+  become: yes
+  make:
+    target: install
+    chdir: /tmp/i3-gaps/build
