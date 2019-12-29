@@ -92,3 +92,24 @@
     force: no
   loop: "{{ user_list }}"
   when: item in getent_passwd
+
+- name: Check .xinitrc permissions
+  become: true
+  file:
+    path: "{{ getent_passwd[item][4] }}/.xinitrc"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0755
+  loop: "{{ user_list }}"
+  when: item in getent_passwd
+
+- name: Link .xsession to .xinitrc
+  become: true
+  file:
+    src: "{{ getent_passwd[item][4] }}/.xinitrc"
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0755
+    state: link
+  loop: "{{ user_list }}"
+  when: item in getent_passwd
