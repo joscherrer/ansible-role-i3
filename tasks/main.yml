@@ -107,6 +107,7 @@
   become: true
   file:
     src: "{{ getent_passwd[item][4] }}/.xinitrc"
+    path: "{{ getent_passwd[item][4] }}/.xsession"
     owner: "{{ item }}"
     group: "{{ item }}"
     mode: 0755
