@@ -81,36 +81,26 @@
   getent:
     database: passwd
 
-- name: Create initial .xinitrc
+- name: Set wm
   become: true
   copy:
-    dest: "{{ getent_passwd[item][4] }}/.xinitrc"
-    src: files/.xinitrc
+    dest: "{{ getent_passwd[item][4] }}/.xinitrc.d/"
+    src: files/9999-wm.sh
     owner: "{{ item }}"
     group: "{{ item }}"
     mode: 0755
-    force: no
+    force: yes
   loop: "{{ user_list }}"
   when: item in getent_passwd
 
-- name: Check .xinitrc permissions
+- name: Copy i3 script
   become: true
-  file:
-    path: "{{ getent_passwd[item][4] }}/.xinitrc"
+  copy:
+    dest: "{{ getent_passwd[item][4] }}/.xinitrc.d/"
+    src: files/0001-i3.sh
     owner: "{{ item }}"
     group: "{{ item }}"
     mode: 0755
-  loop: "{{ user_list }}"
-  when: item in getent_passwd
-
-- name: Link .xsession to .xinitrc
-  become: true
-  file:
-    src: "{{ getent_passwd[item][4] }}/.xinitrc"
-    path: "{{ getent_passwd[item][4] }}/.xsession"
-    owner: "{{ item }}"
-    group: "{{ item }}"
-    mode: 0755
-    state: link
+    force: yes
   loop: "{{ user_list }}"
   when: item in getent_passwd
