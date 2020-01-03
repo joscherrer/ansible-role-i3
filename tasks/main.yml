@@ -1,42 +1,15 @@
 ---
 # tasks file for ansible-role-i3
 
-- include_tasks: "{{ ansible_os_family }}.yml"
-
-- name: stat xcb-xrm
-  stat:
-    path: /usr/lib64/libxcb-xrm.so
-  register: xcb_xrm
-
-- name: Cloning xcb-util-xrm
-  git:
-    repo: https://github.com/Airblader/xcb-util-xrm
-    dest: /tmp/xcb-util-xrm
-    recursive: yes
-  when: not xcb_xrm.stat.exists
-
-- name: Autogen xcb-util-xrm
-  shell: ./autogen.sh --prefix=/usr --libdir=/usr/lib64
-  args:
-    chdir: /tmp/xcb-util-xrm
-  when: not xcb_xrm.stat.exists
-
-- name: Making xcb-util-xrm
-  make:
-    chdir: /tmp/xcb-util-xrm
-    target: all
-  when: not xcb_xrm.stat.exists
-
-- name: Make install xcb-util-xrm
-  become: yes
-  make:
-    chdir: /tmp/xcb-util-xrm
-    target: install
-  when: not xcb_xrm.stat.exists
+- include_tasks: 
+  file: "{{ ansible_os_family }}.yml"
+  apply:
+    tags: prereq
+  tags: always
 
 - name: Stat i3
   stat:
-    path: /usr/bin/i3
+    path: /usr/local/bin/i3
   register: i3
 
 - name: Cloning i3-gaps
@@ -57,9 +30,8 @@
     state: directory
   when: not i3.stat.exists
 
-
 - name: Configure i3-gaps
-  shell: ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+  shell: ../configure --prefix=/usr/local --sysconfdir=/etc --disable-sanitizers
   args:
     chdir: /tmp/i3-gaps/build
   when: not i3.stat.exists
