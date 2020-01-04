@@ -3,10 +3,12 @@
   shell: yum repolist -t -q 2>/dev/null | tail -n +2 | grep -i "epel"
   register: epel_installed
   changed_when: false
+  failed_when: false
+  args:
+    warn: no
 
 - assert:
-    that: 
-      - epel_installed.rc == 0
+    that: epel_installed.rc == 0
 
 - name: Installing packages
   become: yes
@@ -45,7 +47,7 @@
   become: yes
   package:
     name: "{{ item }}"
-  state: absent
+    state: absent
   loop:
     - i3
     - i3-doc

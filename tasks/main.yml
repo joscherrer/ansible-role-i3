@@ -2,9 +2,9 @@
 # tasks file for ansible-role-i3
 
 - include_tasks: 
-  file: "{{ ansible_os_family }}.yml"
-  apply:
-    tags: prereq
+    file: "{{ ansible_os_family }}.yml"
+    apply:
+      tags: prereq
   tags: always
 
 - name: Stat i3
