@@ -1,14 +1,14 @@
 ansible-role-i3
 =========
 
-Installs i3-gaps on CentOS
+Installs i3-gaps on CentOS  
 https://gist.github.com/stevommmm/5cfe41429579b07862b5f68942915ed2
 
 
 Requirements
 ------------
 
-git
+git  
 epel repository
 
 Role Variables

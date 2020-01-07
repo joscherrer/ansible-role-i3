@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: i3-gaps
+  role_name: i3.gaps
   author: Jonathan Scherrer
   description: Installs i3-gaps
   license: MIT
