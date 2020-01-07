@@ -1,13 +1,16 @@
 - name: Checking EPEL is enabled
   become: yes
-  shell: yum repolist -t -q 2>/dev/null | tail -n +2 | grep -i "epel"
+  shell: |
+    set -o pipefail
+    yum repolist -t -q 2>/dev/null | tail -n +2 | grep -i "epel"
   register: epel_installed
   changed_when: false
   failed_when: false
   args:
     warn: no
 
-- assert:
+- name: Checking epel is installed
+  assert:
     that: epel_installed.rc == 0
 
 - name: Installing packages

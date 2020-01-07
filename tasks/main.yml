@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-role-i3
 
-- include_tasks: 
+- include_tasks:
     file: "{{ ansible_os_family }}.yml"
     apply:
       tags: prereq
@@ -19,7 +19,7 @@
   when: not i3.stat.exists
 
 - name: Autoreconf
-  shell: autoreconf --force --install
+  command: autoreconf --force --install
   args:
     chdir: /tmp/i3-gaps
   when: not i3.stat.exists
@@ -31,7 +31,7 @@
   when: not i3.stat.exists
 
 - name: Configure i3-gaps
-  shell: ../configure --prefix=/usr/local --sysconfdir=/etc --disable-sanitizers
+  command: ../configure --prefix=/usr/local --sysconfdir=/etc --disable-sanitizers
   args:
     chdir: /tmp/i3-gaps/build
   when: not i3.stat.exists
